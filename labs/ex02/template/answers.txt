@@ -1,0 +1,20 @@
+1)
+  i) Each column is a data point (with the added '1' value to simplify the arithmetic)
+  ii) Each row is a feature. In our case, the 'empty' feature, then the height
+  iii) cf i.
+  iv) y : 3x1, x : 3x2. X_32 is the height of the third person
+
+  a) L(w) = 1/2N * eTe
+
+2)
+  b) Not a good estimate, the line going through the middle appears to be to low.
+     The problem is that MSE is not good in this case, errors for higher weights are more imptcful
+     With 50, much better, but still not perfect
+  c) fine grid obviously
+     ofc, with finer grid, results are better, but it takes a longer time to compute
+
+3) L(w) = 1/2N * sum_n(yn - xnTw)^2
+        = 1/2N * sum_n(yn - w0 - w1 * xn1)^2
+   Ln(w) = 1/2 * (yn - w0 - w1 * xn1)^2
+   dLn(w) / dw0 = 1/2 * 2 * -1 * (yn - w0 - w1 * xn1)
+                = w0 + w1 * xn1 - yn
