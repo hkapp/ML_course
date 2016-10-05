@@ -55,3 +55,37 @@ def build_model_data(height, weight):
     num_samples = len(y)
     tx = np.c_[np.ones(num_samples), x]
     return y, tx
+
+"""Code from ex02"""
+
+def compute_loss(y, tx, w, lossf = "MSE"):
+    """Calculate the loss.
+
+    You can calculate the loss using mse or mae.
+    """
+    e = y - tx.dot(w)
+    if (lossf == "MSE"):
+        return (1 /(2 * y.shape[0])) * e.T.dot(e)
+    elif (lossf == "MAE"):
+        return (1 /y.shape[0]) * np.sum(np.abs(e))
+    else:
+        raise ValueError
+
+def generate_w(num_intervals):
+    """Generate a grid of values for w0 and w1."""
+    w0 = np.linspace(-100, 200, num_intervals)
+    w1 = np.linspace(-150, 150, num_intervals)
+    return w0, w1
+
+
+def get_best_parameters(w0, w1, losses):
+    """Get the best w from the result of grid search."""
+    min_row, min_col = np.unravel_index(np.argmin(losses), losses.shape)
+    return losses[min_row, min_col], w0[min_row], w1[min_col]
+
+def grid_search(y, tx, w0, w1, lossf = "MSE"):
+    losses = np.zeros((len(w0), len(w1)))
+    for i in range(len(w0)):
+        for j in range(len(w1)):
+            losses[i,j] = compute_loss(y, tx, [w0[i], w1[j]], lossf)
+    return losses
