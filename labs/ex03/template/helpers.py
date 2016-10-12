@@ -63,11 +63,14 @@ def compute_loss(y, tx, w, lossf = "MSE"):
 
     You can calculate the loss using mse or mae.
     """
-    e = y - tx.dot(w)
     if (lossf == "MSE"):
+        e = y - tx.dot(w)
         return (1 /(2 * y.shape[0])) * e.T.dot(e)
     elif (lossf == "MAE"):
+        e = y - tx.dot(w)
         return (1 /y.shape[0]) * np.sum(np.abs(e))
+    elif(lossf == "RMSE"):
+        return (np.sqrt(2*compute_loss(y, tx, w, "MSE")))
     else:
         raise ValueError
 
