@@ -1,5 +1,6 @@
 #Local
 .fuse_hidden*
+*.swp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
